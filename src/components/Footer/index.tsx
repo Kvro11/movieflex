@@ -3,7 +3,7 @@ import { FaInstagram } from "react-icons/fa";
 import { FaSquareXTwitter } from "react-icons/fa6";
 import { FaYoutube } from "react-icons/fa";
 
-import { FooterLinks } from "./data.js";
+import { FooterLinks } from "./data.ts";
 
 const Footer = () => {
   const socialMedia = [

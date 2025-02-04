@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 interface APIState {
@@ -35,7 +35,7 @@ const API_BASE_URL = "https://api.themoviedb.org/3";
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async ({ apiType, query }: FetchType, { rejectWithValue }) => {
+  async ({ apiType }: FetchType, { rejectWithValue }) => {
     const endPoint: Record<FetchType["apiType"], string> = {
       popular: "/movie/popular",
       top_rated: "/movie/top_rated",
