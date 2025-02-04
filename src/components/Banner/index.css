@@ -1,0 +1,111 @@
+.swiper-container {
+  height: 35vh;
+  width: 100%;
+  background: linear-gradient(to bottom, #3d0000, #000000);
+  background-color: aqua;
+
+  .slide-container {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+
+    img {
+      width: 95%;
+      height: 100%;
+    }
+
+    .info-wrap {
+      z-index: 11;
+      position: absolute;
+      left: auto;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      gap: 0.5rem;
+      height: 100%;
+      width: 95%;
+      padding: 1rem;
+
+      span {
+        font-size: 0.8rem;
+        height: auto; /* Fixed height */
+        overflow: hidden;
+        display: -webkit-box;
+        -webkit-line-clamp: 3; /* Limits text to 3 lines */
+        -webkit-box-orient: vertical;
+      }
+
+      .star {
+        display: none;
+        margin-top: 0rem;
+        /* width: 70%; */
+        svg {
+          width: 1.2rem !important;
+          height: 1.2rem !important;
+        }
+      }
+    }
+  }
+
+  .slide-container::after {
+    z-index: 10;
+    position: absolute;
+    top: 0px;
+    left: auto;
+    right: auto;
+    bottom: 0;
+    content: "";
+    width: 95%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 1rem;
+  }
+}
+
+@media (width >= 40em) {
+  .swiper-container {
+    height: 75vh;
+    /* background: linear-gradient(to bottom, #3d0000, #000000); */
+
+    .slide-container {
+      max-height: 100%;
+      img {
+        width: 95%;
+        max-height: 100%;
+      }
+
+      .info-wrap {
+        left: 2.6rem;
+        gap: 1.5rem;
+        width: 50%;
+        padding: 3rem;
+
+        span {
+          height: unset;
+          font-size: 1.2rem;
+          overflow: unset;
+          display: -webkit-box;
+          -webkit-line-clamp: unset; /* Limits text to 3 lines */
+          -webkit-box-orient: unset;
+        }
+
+        .star {
+          display: block;
+          margin-top: 1.5rem;
+
+          svg {
+            width: 2.2rem !important;
+            height: 2.2rem !important;
+          }
+        }
+      }
+    }
+
+    .slide-container::after {
+      width: 95vw;
+      height: 100%;
+    }
+  }
+}
