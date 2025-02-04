@@ -1,9 +1,9 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import StarRatings from "react-star-ratings";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
-import "swiper/css";
-import "swiper/css/navigation";
-import "swiper/css/pagination";
+// import "swiper/css";
+// import "swiper/css/navigation";
+// import "swiper/css/pagination";
 import "./index.css";
 
 const Banner = ({ state }: any) => {
