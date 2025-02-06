@@ -1,9 +1,18 @@
+import { useNavigate } from "react-router-dom";
+
 import { PiGitlabLogoFill } from "react-icons/pi";
 import { FaSearch } from "react-icons/fa";
 
 const Header = () => {
+  const navigate = useNavigate();
+
   const liStyling =
     "hover:text-lightColor cursor-pointer border-2 px-5 rounded-lg sm:px-0 sm:border-0";
+
+  const getTvShow = () => {
+    navigate("/tv-show"); // Navigate only after fetching is done
+  };
+
   return (
     <div
       className="h-fit p-5 flex flex-col sm:flex-row sm:items-center 
@@ -34,7 +43,9 @@ const Header = () => {
         <ul className="w-full flex justify-between">
           <li className={liStyling}>Genre</li>
           <li className={liStyling}>Movies</li>
-          <li className={liStyling}>TV Shows</li>
+          <li className={liStyling} onClick={getTvShow}>
+            TV Shows
+          </li>
         </ul>
       </div>
     </div>

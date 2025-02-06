@@ -7,7 +7,6 @@ import { Autoplay, EffectCoverflow } from "swiper/modules";
 import "./index.css";
 
 const Banner = ({ state }: any) => {
-  console.log(`@@@ BANNER: `, state);
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
   const posterSize = "w1280"; // Choose a size
   return (
