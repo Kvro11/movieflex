@@ -1,9 +1,4 @@
-import {
-  createAsyncThunk,
-  createSlice,
-  isRejectedWithValue,
-  PayloadAction,
-} from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { fetchData } from "./fectchData";
 
 import {
