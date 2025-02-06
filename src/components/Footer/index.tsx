@@ -19,15 +19,22 @@ const Footer = () => {
     >
       <div className=" flex flex-col gap-5 w-10/12">
         <div className="flex gap-3">
-          {socialMedia.map((list) => (
-            <a href={list.link} target="_blank" className="text-3xl">
+          {socialMedia.map((list, index) => (
+            <a
+              key={index}
+              href={list.link}
+              target="_blank"
+              className="text-3xl"
+            >
               {list.icon}
             </a>
           ))}
         </div>
         <ul className="flex flex-col flex-wrap h-20 list-none">
-          {FooterLinks.map((links: string) => (
-            <li className="w-2/12 hover:underline cursor-pointer">{links}</li>
+          {FooterLinks.map((links: string, index) => (
+            <li key={index} className="w-2/12 hover:underline cursor-pointer">
+              {links}
+            </li>
           ))}
         </ul>
         <div className="copyright">
