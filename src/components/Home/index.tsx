@@ -14,9 +14,9 @@ const Home = ({ state }: any) => {
   ];
   return (
     <div className="py-5 px-3  sm:p-12 flex flex-col gap-10 mt-5 sm:mt-0">
-      {movieList.map((movie: { type: string; list: any[] }) => (
+      {movieList.map((movie: { type: string; list: any[] }, index) => (
         // sectionWrap(movie.type, movie.list)
-        <SectionWrap name={movie.type} dataList={movie.list} />
+        <SectionWrap name={movie.type} dataList={movie.list} key={index} />
       ))}
     </div>
   );

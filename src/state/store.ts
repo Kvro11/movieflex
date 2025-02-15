@@ -1,13 +1,20 @@
 import { configureStore } from "@reduxjs/toolkit";
-import movies from "./movieSlice";
-import tvShow from "./tvSlice";
+import storage from "redux-persist/lib/storage";
+import { persistReducer, persistStore } from "redux-persist";
+
+import rootReducer from "./reducer";
+
+const persistConfig: any = {
+  key: "root",
+  storage,
+};
+
+const persistedReducer = persistReducer(persistConfig, rootReducer);
 
 export const store = configureStore({
-  reducer: {
-    movieList: movies,
-    tvShow: tvShow,
-  },
+  reducer: persistedReducer,
 });
 
+export const persistor = persistStore(store);
 export type RootState = ReturnType<typeof store.getState>;
 export type AppDispatch = typeof store.dispatch;

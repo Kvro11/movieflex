@@ -32,7 +32,7 @@ const SwiperComponent = ({ movies }: any) => {
           <img
             src={`${BASE_IMAGE_URL}${posterSize}${movie.poster_path}`}
             alt="Poster Image"
-            className="h-full rounded-2xl relative"
+            // className="h-full rounded-2xl relative"
           />
         </SwiperSlide>
       ))}

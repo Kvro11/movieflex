@@ -12,7 +12,11 @@ export default {
         bgGradient: "linear-gradient(to bottom, #3d0000, #000000)"
       },
       width: {
-        95: '95%'
+        95: '95%',
+      },
+      height: {
+        90: '90%',
+        '85vh': '85vh'
       }
     },
   },

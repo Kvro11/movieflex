@@ -19,7 +19,7 @@ const initialState: APIState = {
 
 export const fetchMovies = createAsyncThunk(
   "movies/fetchMovies",
-  async ({ apiType }: FetchType, { rejectWithValue }) => {
+  async ({ apiType, page, query }: FetchType, { rejectWithValue }) => {
     const endPoint: Record<FetchType["apiType"], string> = {
       popular: "/movie/popular",
       top_rated: "/movie/top_rated",
@@ -27,10 +27,10 @@ export const fetchMovies = createAsyncThunk(
       kdrama: "/discover/tv",
       anime: "/discover/tv",
     };
-
     const extraParams: Record<string, Record<string, string | number>> = {
       anime: { with_genres: 16, with_origin_country: "JP" },
       kdrama: { with_genres: 18, with_origin_country: "KR" },
+      search: { query: query ?? "" },
     };
 
     try {
@@ -40,6 +40,7 @@ export const fetchMovies = createAsyncThunk(
 
       const results = await fetchData(
         endPoint[apiType],
+        page,
         extraParams[apiType] || {}
       );
       return { apiType, results };
@@ -67,12 +68,16 @@ const movieSlice = createSlice({
         const stateMap: Record<string, keyof typeof state> = {
           popular: "popularList",
           top_rated: "topRatedList",
-          // search: "searchList",
           kdrama: "kdramaList",
           anime: "animeList",
         };
         if (apiType in stateMap) {
           (state as any)[stateMap[apiType]] = results; // TypeScript-safe dynamic assignment
+        } else if (apiType === "search") {
+          state.searchList =
+            action.meta.arg.page === 1
+              ? results
+              : [...state.searchList, ...results];
         }
       })
       // Use dynamic property assignment
