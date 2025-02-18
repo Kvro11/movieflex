@@ -10,6 +10,10 @@
       height: 100%;
       border-radius: 0.5rem;
     }
+    .moreGif {
+      width: 50%;
+      height: 50%;
+    }
   }
 
   .swiperSlide:last-child {

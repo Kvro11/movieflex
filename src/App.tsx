@@ -13,6 +13,8 @@ import Footer from "./components/Footer";
 import TvShow from "./pages/TvShow";
 import MovieShow from "./pages/Movies";
 import Search from "./pages/Search";
+import MoreShow from "./pages/MoreShow";
+import ScrollToTop from "./components/ScrollToTop";
 
 import "./App.css";
 
@@ -38,6 +40,7 @@ const App = () => {
   return (
     <Router>
       <div className="bg-black h-fit">
+        <ScrollToTop />
         <Routes>
           {/* Home Page with Header */}
           <Route
@@ -80,6 +83,16 @@ const App = () => {
               <>
                 <Header handleSearch={handleSearch} />
                 <Search query={query} />
+                <Footer />
+              </>
+            }
+          />
+          <Route
+            path="/moreShow"
+            element={
+              <>
+                <Header handleSearch={handleSearch} />
+                <MoreShow />
                 <Footer />
               </>
             }

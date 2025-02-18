@@ -6,6 +6,8 @@ export interface APIState {
   animeList: any[];
   isLoading: boolean;
   error: string | null;
+  initialSearch: boolean;
+  moreShow: string;
 }
 
 export interface CatalogState {
