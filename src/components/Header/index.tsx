@@ -10,7 +10,7 @@ interface HeaderProps {
 }
 
 const Header: React.FC<HeaderProps> = ({ handleSearch }) => {
-  const searchRef = useRef(null);
+  const searchRef = useRef<HTMLDivElement | null>(null);
   const navigate = useNavigate();
   const [display, setDisplay] = useState<boolean>(false);
   const [searchWidth, setSearchWidth] = useState("70%"); // Default for mobile
