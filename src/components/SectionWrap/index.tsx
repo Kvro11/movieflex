@@ -3,9 +3,16 @@ import SwiperComponent from "../SwiperComponent";
 interface SectionWrapProps {
   name: string;
   dataList: any[];
+  apiType: string;
+  fetchMoreShow: any;
 }
 
-const SectionWrap: React.FC<SectionWrapProps> = ({ name, dataList }) => {
+const SectionWrap: React.FC<SectionWrapProps> = ({
+  name,
+  dataList,
+  apiType,
+  fetchMoreShow,
+}) => {
   if (!dataList || dataList.length === 0) return null; // Skip empty lists
 
   return (
@@ -16,7 +23,11 @@ const SectionWrap: React.FC<SectionWrapProps> = ({ name, dataList }) => {
       <span className="sm:text-2xl px-2 text-lightColor font-bold absolute -top-5 z-11 bg-black">
         {name}
       </span>
-      <SwiperComponent movies={dataList} />
+      <SwiperComponent
+        movies={dataList}
+        apiType={apiType}
+        fetchMoreShow={fetchMoreShow}
+      />
     </section>
   );
 };

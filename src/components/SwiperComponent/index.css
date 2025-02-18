@@ -5,11 +5,14 @@
     width: 9rem;
     height: 11rem;
     margin-right: 0.5rem;
-
     img {
       width: 100%;
       height: 100%;
       border-radius: 0.5rem;
+    }
+    .moreGif {
+      width: 50%;
+      height: 50%;
     }
   }
 

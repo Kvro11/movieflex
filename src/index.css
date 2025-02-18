@@ -13,9 +13,23 @@ body {
   overflow: auto; /* Enables scrolling */
   scrollbar-width: none; /* For Firefox */
   -ms-overflow-style: none; /* For IE and Edge */
+  scroll-behavior: smooth;
 }
 
 html::-webkit-scrollbar,
 body::-webkit-scrollbar {
   display: none; /* Hides scrollbar for Chrome, Safari, and Opera */
+}
+
+body.no-scroll {
+  overflow: hidden !important;
+  position: fixed;
+  width: 100%;
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari */
+}
+.custom-scrollbar {
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
 }

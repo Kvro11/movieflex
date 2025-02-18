@@ -6,11 +6,21 @@ export interface APIState {
   animeList: any[];
   isLoading: boolean;
   error: string | null;
+  initialSearch: boolean;
+  moreShow: string;
 }
 
+export interface CatalogState {
+  tvShow: any[];
+  movieShow: any[];
+  isLoading: boolean;
+  error: string | null;
+}
 export interface FetchType {
   apiType: string;
   query?: string;
+  page?: number;
+  genreId?: number | null;
 }
 
 export interface FetchMoviesResponse {
@@ -21,6 +31,7 @@ export interface FetchMoviesResponse {
 //TV Show
 
 export interface TVState {
+  tvShow: any[];
   popularShow: any[];
   topRatedShow: any[];
   kdramaShow: any[];
@@ -32,13 +43,20 @@ export interface TVState {
 }
 
 export interface FetchTvShowResponse {
-  apiType:
-    | "popularShow"
-    | "topRatedShow"
-    | "search"
-    | "kdrama"
-    | "anime"
-    | "western"
-    | "kids";
+  apiType: "tvCatalog" | "movieCatalog";
   results: any[]; // Replace `any[]` with the actual shape of the movie objects if known
+}
+
+//Genre Lits
+
+export interface genreState {
+  tvGenreList: any[];
+  movieGenreList: any[];
+  isLoading: boolean;
+  error: string | null;
+}
+
+export interface FetchGenre {
+  apiType: "tvGenre" | "movieGenre";
+  results: any[];
 }

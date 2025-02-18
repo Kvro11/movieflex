@@ -5,7 +5,9 @@ import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./index.css";
 
-const SwiperComponent = ({ movies }: any) => {
+import moreGif from "../../assets/more.gif";
+
+const SwiperComponent = ({ movies, apiType, fetchMoreShow }: any) => {
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
   const posterSize = "w300"; // Choose a size
 
@@ -32,10 +34,21 @@ const SwiperComponent = ({ movies }: any) => {
           <img
             src={`${BASE_IMAGE_URL}${posterSize}${movie.poster_path}`}
             alt="Poster Image"
-            className="h-full rounded-2xl relative"
+            // className="h-full rounded-2xl relative"
           />
         </SwiperSlide>
       ))}
+      <SwiperSlide className="swiperSlide">
+        <div
+          className="w-full h-full bg-lightColor 
+        rounded-md flex flex-col justify-center items-center
+        gap-3 cursor-pointer"
+          onClick={() => fetchMoreShow(apiType)}
+        >
+          <img src={moreGif} alt="movie animation" className="moreGif" />
+          <span className="sm:text-2xl hover:text-red-700">+ more</span>
+        </div>
+      </SwiperSlide>
     </Swiper>
   );
 };

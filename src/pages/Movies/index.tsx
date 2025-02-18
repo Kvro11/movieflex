@@ -6,15 +6,15 @@ import { AppDispatch, RootState } from "../../state/store";
 
 import CatalogList from "../../components/SectionWrap/CatalogList";
 
-const TvShow = () => {
-  const state = useSelector((state: RootState) => state.catalog.tvShow);
-  const tvGenreState = useSelector(
-    (state: RootState) => state.genreList.tvGenreList
+const MovieShow = () => {
+  const state = useSelector((state: RootState) => state.catalog?.movieShow);
+  const movieGenreState = useSelector(
+    (state: RootState) => state.genreList?.movieGenreList
   );
+
   const dispatch = useDispatch<AppDispatch>();
 
   const [page, setPage] = useState(1);
-  const [genre, setGenre] = useState<number | null>(null);
 
   const [isNavOpen, setIsNavOpen] = useState(false);
 
@@ -22,40 +22,35 @@ const TvShow = () => {
     setIsNavOpen((prev) => !prev);
   };
 
-  const onGenreSelect = (genreId: number | null) => {
-    setGenre(genreId);
-    dispatch(fetchShowList({ apiType: "tvCatalog", page: 1, genreId }));
+  const onGenreSelect = (genreId: number) => {
+    dispatch(
+      fetchShowList({ apiType: "movieCatalog", page: 1, genreId: genreId })
+    );
     setIsNavOpen((prev) => !prev);
   };
 
   const fetchMoreTVShow = () => {
     const nextPage = page + 1;
-    dispatch(
-      fetchShowList({
-        apiType: "tvCatalog",
-        page: nextPage,
-        genreId: genre,
-      })
-    );
+    dispatch(fetchShowList({ apiType: "movieCatalog", page: nextPage }));
     setPage(nextPage);
   };
 
   useEffect(() => {
-    dispatch(fetchShowList({ apiType: "tvCatalog", page, genreId: genre }));
-  }, [dispatch, genre]);
+    dispatch(fetchShowList({ apiType: "movieCatalog", page }));
+  }, [dispatch]);
 
   return (
     <div className="h-fit text-lightColor relative">
       <CatalogList
-        title={"TV Show"}
+        title={"Movie Show"}
         toggleGenre={toggleGenre}
         fetchMoreShow={fetchMoreTVShow}
+        onGenreSelect={onGenreSelect}
         isNavOpen={isNavOpen}
         state={state}
-        genreState={tvGenreState}
-        onGenreSelect={onGenreSelect}
+        genreState={movieGenreState}
       />
     </div>
   );
 };
-export default TvShow;
+export default MovieShow;

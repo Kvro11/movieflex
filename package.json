@@ -14,12 +14,15 @@
     "@tailwindcss/postcss": "^4.0.1",
     "@tailwindcss/vite": "^4.0.1",
     "axios": "^1.7.9",
+    "framer-motion": "^12.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.4.0",
+    "react-infinite-scroll-component": "^6.1.0",
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.1.5",
     "react-star-ratings": "^2.3.0",
+    "redux-persist": "^6.0.0",
     "swiper": "^11.2.2"
   },
   "devDependencies": {
