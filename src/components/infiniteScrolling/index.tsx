@@ -6,7 +6,8 @@ import { TbMovie } from "react-icons/tb";
 
 interface DataListType {
   poster_path: string;
-  title: string;
+  title?: string;
+  name?: string;
 }
 
 interface InfiniteScrollingType {
@@ -52,7 +53,7 @@ const InfiniteScrolling = ({ fetchMore, dataList }: InfiniteScrollingType) => {
           className="px-3 py-5 sm:px-12 sm:pb-12 grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] 
             sm:grid-cols-2 lg:grid-cols-6 gap-4"
         >
-          {dataList?.map(({ poster_path, title }, index) => (
+          {dataList?.map(({ poster_path, title, name }, index) => (
             <div className="rounded-md" key={index}>
               {poster_path ? (
                 <img
@@ -68,7 +69,7 @@ const InfiniteScrolling = ({ fetchMore, dataList }: InfiniteScrollingType) => {
                 >
                   <TbMovie className="text-primaryColor text-8xl" />
                   <span className="sm:text-xl text-primaryColor text-center">
-                    {title}
+                    {title || name}
                   </span>
                 </div>
               )}
