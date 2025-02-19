@@ -14,8 +14,7 @@ const MovieShow = () => {
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const [page, setPage] = useState(1);
-
+  const [genre, setGenre] = useState<number | null>(null);
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleGenre = () => {
@@ -26,17 +25,18 @@ const MovieShow = () => {
     dispatch(
       fetchShowList({ apiType: "movieCatalog", page: 1, genreId: genreId })
     );
-    setIsNavOpen((prev) => !prev);
+    setGenre(genreId);
+    setIsNavOpen(false);
   };
 
-  const fetchMoreTVShow = () => {
-    const nextPage = page + 1;
-    dispatch(fetchShowList({ apiType: "movieCatalog", page: nextPage }));
-    setPage(nextPage);
+  const fetchMoreTVShow = (nextPage: number) => {
+    dispatch(
+      fetchShowList({ apiType: "movieCatalog", page: nextPage, genreId: genre })
+    );
   };
 
   useEffect(() => {
-    dispatch(fetchShowList({ apiType: "movieCatalog", page }));
+    dispatch(fetchShowList({ apiType: "movieCatalog", page: 1 }));
   }, [dispatch]);
 
   return (

@@ -24,7 +24,6 @@ const Home = ({ state }: any) => {
 
   const fetchMoreShow = (apiType: string) => {
     navigate("/moreShow");
-    console.log("fetch", apiType);
     dispatch(setMoreShow(apiType));
   };
 

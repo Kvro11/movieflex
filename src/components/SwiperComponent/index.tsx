@@ -29,7 +29,7 @@ const SwiperComponent = ({ movies, apiType, fetchMoreShow }: any) => {
       // freeMode={true} // Allows natural horizontal scrolling
       className="swiperContainer"
     >
-      {movies.map((movie: any) => (
+      {movies?.slice(0, 19).map((movie: any) => (
         <SwiperSlide className="swiperSlide" key={movie.id}>
           <img
             src={`${BASE_IMAGE_URL}${posterSize}${movie.poster_path}`}
