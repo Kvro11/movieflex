@@ -1,8 +1,9 @@
 import SwiperComponent from "../SwiperComponent";
+import { MovieType } from "../../types/SwiperComponentType";
 
 interface SectionWrapProps {
   name: string;
-  dataList: any[];
+  dataList: MovieType;
   apiType: string;
   fetchMoreShow: any;
 }
@@ -13,7 +14,7 @@ const SectionWrap: React.FC<SectionWrapProps> = ({
   apiType,
   fetchMoreShow,
 }) => {
-  if (!dataList || dataList.length === 0) return null; // Skip empty lists
+  if (!dataList.results || dataList.results?.length === 0) return null; // Skip empty lists
 
   return (
     <section

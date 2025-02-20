@@ -1,9 +1,13 @@
+export interface ShowState {
+  results: any[];
+  total_results: number;
+}
 export interface APIState {
-  popularList: any[];
-  topRatedList: any[];
-  searchList: any[];
-  kdramaList: any[];
-  animeList: any[];
+  popularList: ShowState;
+  topRatedList: ShowState;
+  searchList: ShowState;
+  kdramaList: ShowState;
+  animeList: ShowState;
   isLoading: boolean;
   error: string | null;
   initialSearch: boolean;
@@ -11,11 +15,12 @@ export interface APIState {
 }
 
 export interface CatalogState {
-  tvShow: any[];
-  movieShow: any[];
+  tvShow: ShowState;
+  movieShow: ShowState;
   isLoading: boolean;
   error: string | null;
 }
+
 export interface FetchType {
   apiType: string;
   query?: string;
@@ -25,7 +30,7 @@ export interface FetchType {
 
 export interface FetchMoviesResponse {
   apiType: "popular" | "top_rated" | "search" | "kdrama" | "anime";
-  results: any[]; // Replace `any[]` with the actual shape of the movie objects if known
+  results: ShowState; // Replace `any[]` with the actual shape of the movie objects if known
 }
 
 //TV Show
@@ -44,7 +49,7 @@ export interface TVState {
 
 export interface FetchTvShowResponse {
   apiType: "tvCatalog" | "movieCatalog";
-  results: any[]; // Replace `any[]` with the actual shape of the movie objects if known
+  results: ShowState; // Replace `any[]` with the actual shape of the movie objects if known
 }
 
 //Genre Lits

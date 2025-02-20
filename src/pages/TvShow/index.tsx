@@ -7,13 +7,13 @@ import { AppDispatch, RootState } from "../../state/store";
 import CatalogList from "../../components/SectionWrap/CatalogList";
 
 const TvShow = () => {
-  const state = useSelector((state: RootState) => state.catalog.tvShow);
+  const dataList = useSelector((state: RootState) => state.catalog?.tvShow);
+
   const tvGenreState = useSelector(
     (state: RootState) => state.genreList.tvGenreList
   );
   const dispatch = useDispatch<AppDispatch>();
 
-  const [page, setPage] = useState(1);
   const [genre, setGenre] = useState<number | null>(null);
 
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -25,24 +25,22 @@ const TvShow = () => {
   const onGenreSelect = (genreId: number | null) => {
     setGenre(genreId);
     dispatch(fetchShowList({ apiType: "tvCatalog", page: 1, genreId }));
-    setIsNavOpen((prev) => !prev);
+    setIsNavOpen(false);
   };
 
-  const fetchMoreTVShow = () => {
-    const nextPage = page + 1;
+  const fetchMoreTVShow = (nextPage: number) => {
     dispatch(
       fetchShowList({
         apiType: "tvCatalog",
         page: nextPage,
-        genreId: genre,
+        genreId: genre ?? undefined,
       })
     );
-    setPage(nextPage);
   };
 
   useEffect(() => {
-    dispatch(fetchShowList({ apiType: "tvCatalog", page, genreId: genre }));
-  }, [dispatch, genre]);
+    dispatch(fetchShowList({ apiType: "tvCatalog", page: 1, genreId: genre }));
+  }, [dispatch]);
 
   return (
     <div className="h-fit text-lightColor relative">
@@ -51,7 +49,7 @@ const TvShow = () => {
         toggleGenre={toggleGenre}
         fetchMoreShow={fetchMoreTVShow}
         isNavOpen={isNavOpen}
-        state={state}
+        dataList={dataList}
         genreState={tvGenreState}
         onGenreSelect={onGenreSelect}
       />

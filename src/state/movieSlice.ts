@@ -5,14 +5,20 @@ import {
   APIState,
   FetchType,
   FetchMoviesResponse,
+  ShowState,
 } from "../types/fetchDataTypes";
 
+const initialList = {
+  results: [],
+  total_results: 0,
+};
+
 const initialState: APIState = {
-  popularList: [],
-  topRatedList: [],
-  searchList: [],
-  kdramaList: [],
-  animeList: [],
+  popularList: initialList,
+  topRatedList: initialList,
+  searchList: initialList,
+  kdramaList: initialList,
+  animeList: initialList,
   isLoading: false,
   error: null,
   initialSearch: false,
@@ -74,23 +80,43 @@ const movieSlice = createSlice({
 
         const { apiType, results } = action.payload as FetchMoviesResponse;
 
-        const stateMap: Record<string, keyof typeof state> = {
+        const formattedResults: ShowState = {
+          results: results?.results || [],
+          total_results: results?.total_results ?? null,
+        };
+
+        const stateMap: Record<string, keyof APIState> = {
           popular: "popularList",
           top_rated: "topRatedList",
           kdrama: "kdramaList",
           anime: "animeList",
         };
+
         if (apiType in stateMap) {
           const key = stateMap[apiType];
-          (state as any)[key] =
+          const currentState = state[key] as ShowState;
+
+          (state[key] as ShowState) =
             action.meta.arg.page === 1
-              ? results
-              : [...(state as any)[key], ...results]; // TypeScript-safe dynamic assignment
+              ? formattedResults
+              : {
+                  ...currentState,
+                  results: [
+                    ...(currentState?.results || []),
+                    ...formattedResults.results,
+                  ],
+                };
         } else if (apiType === "search") {
           state.searchList =
             action.meta.arg.page === 1
-              ? results
-              : [...state.searchList, ...results];
+              ? formattedResults
+              : {
+                  ...state.searchList,
+                  results: [
+                    ...(state.searchList.results || []),
+                    ...formattedResults.results,
+                  ],
+                };
         }
       })
       // Use dynamic property assignment

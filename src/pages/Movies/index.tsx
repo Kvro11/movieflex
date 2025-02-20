@@ -7,15 +7,14 @@ import { AppDispatch, RootState } from "../../state/store";
 import CatalogList from "../../components/SectionWrap/CatalogList";
 
 const MovieShow = () => {
-  const state = useSelector((state: RootState) => state.catalog?.movieShow);
+  const dataList = useSelector((state: RootState) => state.catalog?.movieShow);
   const movieGenreState = useSelector(
     (state: RootState) => state.genreList?.movieGenreList
   );
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const [page, setPage] = useState(1);
-
+  const [genre, setGenre] = useState<number | null>(null);
   const [isNavOpen, setIsNavOpen] = useState(false);
 
   const toggleGenre = () => {
@@ -26,17 +25,22 @@ const MovieShow = () => {
     dispatch(
       fetchShowList({ apiType: "movieCatalog", page: 1, genreId: genreId })
     );
-    setIsNavOpen((prev) => !prev);
+    setGenre(genreId);
+    setIsNavOpen(false);
   };
 
-  const fetchMoreTVShow = () => {
-    const nextPage = page + 1;
-    dispatch(fetchShowList({ apiType: "movieCatalog", page: nextPage }));
-    setPage(nextPage);
+  const fetchMoreTVShow = (nextPage: number) => {
+    dispatch(
+      fetchShowList({
+        apiType: "movieCatalog",
+        page: nextPage,
+        genreId: genre ?? undefined,
+      })
+    );
   };
 
   useEffect(() => {
-    dispatch(fetchShowList({ apiType: "movieCatalog", page }));
+    dispatch(fetchShowList({ apiType: "movieCatalog", page: 1 }));
   }, [dispatch]);
 
   return (
@@ -47,7 +51,7 @@ const MovieShow = () => {
         fetchMoreShow={fetchMoreTVShow}
         onGenreSelect={onGenreSelect}
         isNavOpen={isNavOpen}
-        state={state}
+        dataList={dataList}
         genreState={movieGenreState}
       />
     </div>
