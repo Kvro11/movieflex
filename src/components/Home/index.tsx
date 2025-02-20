@@ -5,6 +5,7 @@ import { AppDispatch } from "../../state/store";
 import Loading from "../Loading";
 import SectionWrap from "../SectionWrap/index";
 import { setMoreShow } from "../../state/movieSlice";
+import { MovieType } from "../../types/SwiperComponentType";
 
 const Home = ({ state }: any) => {
   const navigate = useNavigate();
@@ -34,7 +35,10 @@ const Home = ({ state }: any) => {
       ) : (
         <div className="py-5 px-3  sm:p-12 flex flex-col gap-10 mt-5 sm:mt-0">
           {movieList.map(
-            (movie: { type: string; list: any[]; apiType: string }, index) => (
+            (
+              movie: { type: string; list: MovieType; apiType: string },
+              index
+            ) => (
               // sectionWrap(movie.type, movie.list)
               <SectionWrap
                 name={movie.type}
