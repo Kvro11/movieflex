@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import NoImage from "../Placeholder/NoImage";
@@ -18,12 +18,10 @@ const InfiniteScrolling = ({ fetchMore, dataList }: InfiniteScrollingType) => {
   const movieTotalItem = dataList?.total_results;
 
   const fetchMoreShow = () => {
-    setPage((prevPage) => prevPage + 1);
+    const nextPage = page + 1;
+    fetchMore(nextPage);
+    setPage(nextPage);
   };
-
-  useEffect(() => {
-    fetchMore(page);
-  }, [page]);
 
   const handleScrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
