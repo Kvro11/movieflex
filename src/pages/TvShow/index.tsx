@@ -7,7 +7,8 @@ import { AppDispatch, RootState } from "../../state/store";
 import CatalogList from "../../components/SectionWrap/CatalogList";
 
 const TvShow = () => {
-  const state = useSelector((state: RootState) => state.catalog.tvShow);
+  const dataList = useSelector((state: RootState) => state.catalog?.tvShow);
+
   const tvGenreState = useSelector(
     (state: RootState) => state.genreList.tvGenreList
   );
@@ -24,7 +25,7 @@ const TvShow = () => {
   const onGenreSelect = (genreId: number | null) => {
     setGenre(genreId);
     dispatch(fetchShowList({ apiType: "tvCatalog", page: 1, genreId }));
-    setIsNavOpen((prev) => !prev);
+    setIsNavOpen(false);
   };
 
   const fetchMoreTVShow = (nextPage: number) => {
@@ -32,7 +33,7 @@ const TvShow = () => {
       fetchShowList({
         apiType: "tvCatalog",
         page: nextPage,
-        genreId: genre,
+        genreId: genre ?? undefined,
       })
     );
   };
@@ -48,7 +49,7 @@ const TvShow = () => {
         toggleGenre={toggleGenre}
         fetchMoreShow={fetchMoreTVShow}
         isNavOpen={isNavOpen}
-        state={state}
+        dataList={dataList}
         genreState={tvGenreState}
         onGenreSelect={onGenreSelect}
       />

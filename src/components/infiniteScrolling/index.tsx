@@ -1,34 +1,36 @@
 import { useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
-import { FaArrowAltCircleUp } from "react-icons/fa";
+import NoImage from "../Placeholder/NoImage";
+import {
+  InfiniteScrollingType,
+  ResultsType,
+} from "../../types/InfiniteScrollType";
+
 import { TbMovie } from "react-icons/tb";
-
-interface DataListType {
-  poster_path: string;
-  title?: string;
-  name?: string;
-}
-
-interface InfiniteScrollingType {
-  fetchMore: (nextPage: number) => void;
-  dataList: DataListType[];
-}
+import { FaArrowAltCircleUp } from "react-icons/fa";
 
 const InfiniteScrolling = ({ fetchMore, dataList }: InfiniteScrollingType) => {
   const [page, setPage] = useState<number>(1);
+
   const posterSize = "w300"; // Choose a size=
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
+  const movieItem = dataList?.results;
+  const movieTotalItem = dataList?.total_results;
 
   const fetchMoreShow = () => {
-    const nextPage = page + 1;
-    fetchMore(nextPage);
-    setPage(nextPage);
+    setPage((prevPage) => {
+      const nextPage = prevPage + 1;
+      fetchMore(nextPage);
+      return nextPage;
+    });
   };
 
   const handleScrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
+
+  const hasMoreItems = (movieItem?.length || 0) < (movieTotalItem || 0);
 
   const loadingMore = (
     <p className="text-center py-4 text-lightColor">Loading more...</p>
@@ -43,8 +45,8 @@ const InfiniteScrolling = ({ fetchMore, dataList }: InfiniteScrollingType) => {
   return (
     <>
       <InfiniteScroll
-        dataLength={dataList?.length}
-        hasMore={dataList.length > 0}
+        dataLength={movieItem?.length}
+        hasMore={hasMoreItems}
         next={fetchMoreShow}
         loader={loadingMore}
         endMessage={endMessage}
@@ -53,28 +55,22 @@ const InfiniteScrolling = ({ fetchMore, dataList }: InfiniteScrollingType) => {
           className="px-3 py-5 sm:px-12 sm:pb-12 grid grid-cols-[repeat(auto-fit,minmax(130px,1fr))] 
             sm:grid-cols-2 lg:grid-cols-6 gap-4"
         >
-          {dataList?.map(({ poster_path, title, name }, index) => (
-            <div className="rounded-md" key={index}>
-              {poster_path ? (
-                <img
-                  src={`${BASE_IMAGE_URL}${posterSize}${poster_path}`}
-                  alt={title || "Poster Image"}
-                  className="w-full h-full object-cover rounded-md"
-                  loading="lazy"
-                />
-              ) : (
-                <div
-                  className="w-full h-full object-cover rounded-md bg-white 
-                    flex flex-col justify-center items-center gap-5 px-2"
-                >
-                  <TbMovie className="text-primaryColor text-8xl" />
-                  <span className="sm:text-xl text-primaryColor text-center">
-                    {title || name}
-                  </span>
-                </div>
-              )}
-            </div>
-          ))}
+          {movieItem?.map(
+            ({ poster_path, title, name }: ResultsType, index: number) => (
+              <div className="rounded-md" key={index}>
+                {poster_path ? (
+                  <img
+                    src={`${BASE_IMAGE_URL}${posterSize}${poster_path}`}
+                    alt={title || "Poster Image"}
+                    className="w-full h-full object-cover rounded-md"
+                    loading="lazy"
+                  />
+                ) : (
+                  <NoImage title={title || name} />
+                )}
+              </div>
+            )
+          )}
         </div>
       </InfiniteScroll>
       <button

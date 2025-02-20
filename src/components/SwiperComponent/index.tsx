@@ -1,15 +1,25 @@
 import { Swiper, SwiperSlide } from "swiper/react";
-// import { Autoplay, EffectCoverflow } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
 import "swiper/css/pagination";
 import "./index.css";
 
+import NoImage from "../Placeholder/NoImage";
 import moreGif from "../../assets/more.gif";
+import {
+  SwiperComponentType,
+  DataListType,
+} from "../../types/SwiperComponentType";
 
-const SwiperComponent = ({ movies, apiType, fetchMoreShow }: any) => {
+const SwiperComponent = ({
+  movies,
+  apiType,
+  fetchMoreShow,
+}: SwiperComponentType) => {
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
   const posterSize = "w300"; // Choose a size
+  const dataList = movies.results;
+  const maxSlides = 19;
 
   return (
     <Swiper
@@ -18,26 +28,23 @@ const SwiperComponent = ({ movies, apiType, fetchMoreShow }: any) => {
       grabCursor={true}
       slidesPerView={"auto"}
       spaceBetween={0}
-      pagination={{ el: ".swiper-pagination", clickable: true }}
-      navigation={{
-        nextEl: ".swiper-button-next",
-        prevEl: ".swiper-button-prev",
-        // clickable: true,
-      }}
-      // modules={[EffectCoverflow, Pagination, Navigation]}
-      // onSlideChange={(swiper) => swiper.realIndex + 1}
-      // freeMode={true} // Allows natural horizontal scrolling
       className="swiperContainer"
     >
-      {movies?.slice(0, 19).map((movie: any) => (
-        <SwiperSlide className="swiperSlide" key={movie.id}>
-          <img
-            src={`${BASE_IMAGE_URL}${posterSize}${movie.poster_path}`}
-            alt="Poster Image"
-            // className="h-full rounded-2xl relative"
-          />
-        </SwiperSlide>
-      ))}
+      {dataList
+        ?.slice(0, maxSlides)
+        .map(({ poster_path, id, name, title }: DataListType) => (
+          <SwiperSlide className="swiperSlide" key={id}>
+            {poster_path ? (
+              <img
+                src={`${BASE_IMAGE_URL}${posterSize}${poster_path}`}
+                alt={name || "Poster Image"}
+                loading="lazy"
+              />
+            ) : (
+              <NoImage title={name || title} />
+            )}
+          </SwiperSlide>
+        ))}
       <SwiperSlide className="swiperSlide">
         <div
           className="w-full h-full bg-lightColor 

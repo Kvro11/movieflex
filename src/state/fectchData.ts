@@ -16,7 +16,7 @@ export const fetchData = async (
   };
   try {
     const response = await axios.get(`${API_BASE_URL}${endPoint}`, { params });
-    return response.data.results ?? response.data;
+    return response.data;
   } catch (error: any) {
     throw error.response?.data || "Something went wrong";
   }

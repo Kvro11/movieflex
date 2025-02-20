@@ -13,7 +13,7 @@ const CatalogList: React.FC<CatalogListProps> = ({
   onGenreSelect,
   isNavOpen,
   genreState,
-  state,
+  dataList,
 }: any) => {
   const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ const CatalogList: React.FC<CatalogListProps> = ({
           onGenreSelect={onGenreSelect}
         />
       </div>
-      <InfiniteScrolling fetchMore={fetchMoreShow} dataList={state} />
+      <InfiniteScrolling fetchMore={fetchMoreShow} dataList={dataList} />
     </>
   );
 };

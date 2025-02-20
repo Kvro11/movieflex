@@ -1,14 +1,13 @@
 import { Swiper, SwiperSlide } from "swiper/react";
 import StarRatings from "react-star-ratings";
 import { Autoplay, EffectCoverflow } from "swiper/modules";
-// import "swiper/css";
-// import "swiper/css/navigation";
-// import "swiper/css/pagination";
 import "./index.css";
 
 const Banner = ({ state }: any) => {
   const BASE_IMAGE_URL = "https://image.tmdb.org/t/p/";
   const posterSize = "w1280"; // Choose a size
+  const dataList = state.popularList.results;
+
   return (
     // <div className="h-4/5 flex justify-center items-center">
     <Swiper
@@ -33,7 +32,7 @@ const Banner = ({ state }: any) => {
       }}
       className="swiper-container"
     >
-      {state.popularList?.slice(0, 10)?.map((popular: any) => (
+      {dataList?.slice(0, 10).map((popular: any) => (
         <SwiperSlide key={popular.id} className="slide-container">
           <img
             src={`${BASE_IMAGE_URL}${posterSize}${popular.backdrop_path}`}

@@ -5,11 +5,18 @@ import {
   CatalogState,
   FetchType,
   FetchTvShowResponse,
+  ShowState,
 } from "../types/fetchDataTypes";
 
 const initialState: CatalogState = {
-  tvShow: [],
-  movieShow: [],
+  tvShow: {
+    results: [],
+    total_results: 0,
+  },
+  movieShow: {
+    results: [],
+    total_results: 0,
+  },
   isLoading: false,
   error: null,
 };
@@ -58,16 +65,33 @@ const CatalogSlice = createSlice({
 
         const { apiType, results } = action.payload as FetchTvShowResponse;
 
+        const formattedResults: ShowState = {
+          results: results?.results || [],
+          total_results: results?.total_results ?? null,
+        };
+
         if (apiType === "tvCatalog") {
           state.tvShow =
             action.meta.arg.page === 1
-              ? results
-              : [...state.tvShow, ...results];
+              ? formattedResults
+              : {
+                  ...state.tvShow,
+                  results: [
+                    ...state.tvShow?.results,
+                    ...formattedResults.results,
+                  ],
+                };
         } else if (apiType === "movieCatalog") {
           state.movieShow =
             action.meta.arg.page === 1
-              ? results
-              : [...state.movieShow, ...results];
+              ? formattedResults
+              : {
+                  ...state.movieShow,
+                  results: [
+                    ...state.movieShow?.results,
+                    ...formattedResults.results,
+                  ],
+                };
         }
       })
       .addCase(fetchShowList.rejected, (state, action) => {
