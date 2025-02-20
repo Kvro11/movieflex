@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import InfiniteScroll from "react-infinite-scroll-component";
 
 import NoImage from "../Placeholder/NoImage";
@@ -7,7 +7,6 @@ import {
   ResultsType,
 } from "../../types/InfiniteScrollType";
 
-import { TbMovie } from "react-icons/tb";
 import { FaArrowAltCircleUp } from "react-icons/fa";
 
 const InfiniteScrolling = ({ fetchMore, dataList }: InfiniteScrollingType) => {
@@ -19,12 +18,12 @@ const InfiniteScrolling = ({ fetchMore, dataList }: InfiniteScrollingType) => {
   const movieTotalItem = dataList?.total_results;
 
   const fetchMoreShow = () => {
-    setPage((prevPage) => {
-      const nextPage = prevPage + 1;
-      fetchMore(nextPage);
-      return nextPage;
-    });
+    setPage((prevPage) => prevPage + 1);
   };
+
+  useEffect(() => {
+    fetchMore(page);
+  }, [page]);
 
   const handleScrollTop = () => {
     window.scrollTo({ top: 0, behavior: "smooth" });

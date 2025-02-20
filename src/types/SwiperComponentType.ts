@@ -1,4 +1,4 @@
-interface MovieType {
+export interface MovieType {
   results: any[];
   total_results: number;
 }
