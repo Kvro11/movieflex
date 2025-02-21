@@ -6,7 +6,7 @@ import { fetchMovies } from "../../state/movieSlice";
 import Loading from "../../components/Loading";
 import InfiniteScrolling from "../../components/infiniteScrolling";
 
-const Search = ({ query }: any) => {
+const Search = ({ query }: { query: string }) => {
   const { searchList, initialSearch } = useSelector(
     (state: RootState) => state.movieList
   );

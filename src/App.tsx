@@ -48,7 +48,7 @@ const App = () => {
             element={
               <>
                 <Header handleSearch={handleSearch} />
-                <Banner state={state} />
+                <Banner state={state.popularList} />
                 <Home state={state} />
                 <Footer />
               </>

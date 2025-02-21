@@ -39,7 +39,6 @@ const Home = ({ state }: any) => {
               movie: { type: string; list: MovieType; apiType: string },
               index
             ) => (
-              // sectionWrap(movie.type, movie.list)
               <SectionWrap
                 name={movie.type}
                 dataList={movie.list}

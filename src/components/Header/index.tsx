@@ -30,7 +30,7 @@ const Header: React.FC<HeaderProps> = ({ handleSearch }) => {
   const handleSearchClick = () => {
     if (searchInput.trim()) {
       handleSearch(searchInput);
-      navigate("/search"); // ✅ Now works correctly
+      navigate("/search");
     }
   };
 

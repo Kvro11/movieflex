@@ -54,12 +54,12 @@ const InfiniteScrolling = ({ fetchMore, dataList }: InfiniteScrollingType) => {
         >
           {movieItem?.map(
             ({ poster_path, title, name }: ResultsType, index: number) => (
-              <div className="rounded-md" key={index}>
+              <div className="rounded-md h-full  min-h-[250px]" key={index}>
                 {poster_path ? (
                   <img
                     src={`${BASE_IMAGE_URL}${posterSize}${poster_path}`}
                     alt={title || "Poster Image"}
-                    className="w-full h-full object-cover rounded-md"
+                    className="aspect-[2/3] w-full h-full object-cover rounded-md"
                     loading="lazy"
                   />
                 ) : (
