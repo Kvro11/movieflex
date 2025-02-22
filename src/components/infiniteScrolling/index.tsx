@@ -35,7 +35,7 @@ const InfiniteScrolling = ({ fetchMore, dataList }: InfiniteScrollingType) => {
 
   const endMessage = (
     <p className="text-center py-4 text-lightColor">
-      No more TV shows to display
+      No more content to display
     </p>
   );
 
